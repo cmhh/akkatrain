@@ -1,6 +1,7 @@
 package org.cmhh
 
 import akka.actor.typed.ActorRef
+import org.deeplearning4j.nn.multilayer.MultiLayerNetwork
 
 object messages {
   sealed trait CoordinatorCommand 
@@ -9,7 +10,7 @@ object messages {
   case class RequestClassifier(f: String) extends CoordinatorCommand
   case object Stop extends CoordinatorCommand with ProducerCommand with ConsumerCommand
   case class Accuracy(value: Double, n: Int) extends CoordinatorCommand
-  case class Classifier(value: Array[Byte], f: String)  extends CoordinatorCommand
+  case class Classifier(value: MultiLayerNetwork, f: String)  extends CoordinatorCommand
   
   sealed trait ProducerCommand
   case class SendImages(sendTo: ActorRef[ConsumerCommand], n: Int) extends ProducerCommand

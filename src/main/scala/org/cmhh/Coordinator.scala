@@ -3,7 +3,7 @@ package org.cmhh
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.LoggerOps
 import akka.actor.typed.{ ActorRef, ActorSystem, Behavior }
-import java.io.FileOutputStream
+import java.io.File
 
 object Coordinator {
   import messages._
@@ -23,8 +23,7 @@ object Coordinator {
         case Accuracy(accuracy, n) => 
           println(f"accuracy: %%1.4f, training images seen: %%05d".format(accuracy, n))
         case Classifier(n, f) =>
-          val os = new FileOutputStream(f)
-          os.write(n)
+          n.save(new File(f))
         case Stop =>
           consumer ! Stop
           producer ! Stop

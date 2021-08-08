@@ -4,8 +4,6 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.LoggerOps
 import akka.actor.typed.{ ActorRef, ActorSystem, Behavior }
 import org.nd4j.evaluation.classification.Evaluation
-import org.deeplearning4j.util.ModelSerializer
-import java.io.ByteArrayOutputStream
 
 object Consumer {
   import messages._
@@ -25,7 +23,7 @@ object Consumer {
         replyTo ! Accuracy(accuracy, n)
         Behaviors.same
       case SendClassifier(replyTo, f) =>
-        replyTo ! Classifier(serialize, f)
+        replyTo ! Classifier(network.clone, f)
         Behaviors.same
       case Stop => 
         Behaviors.stopped {() => 
@@ -37,13 +35,5 @@ object Consumer {
   def accuracy: Double = {
     val eval = network.evaluate[Evaluation](mnistTest)
     eval.accuracy
-  }
-
-  def serialize: Array[Byte] = {
-    val os = new ByteArrayOutputStream()
-    ModelSerializer.writeModel(network, os, true)
-    val res = os.toByteArray()
-    os.close
-    res
   }
 }
