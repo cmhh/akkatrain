@@ -2,7 +2,7 @@ package org.cmhh
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.scaladsl.LoggerOps
-import akka.actor.typed.{ ActorRef, ActorSystem, Behavior }
+import akka.actor.typed.Behavior
 import org.nd4j.evaluation.classification.Evaluation
 
 object Consumer {

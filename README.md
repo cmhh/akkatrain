@@ -21,3 +21,5 @@ java -cp target/scala-2.13/akkatrain.jar org.cmhh.Main
 ```
 
 ![](img/akkatrain01.webp)
+
+Note that dl4j is huge, so a fat jar will weigh in at well over 1GB. Modify build.sbt if you have dl4j already in your classpath. Also note that the dependencies are configured to use the CUDA back-end for dl4j, but the CPU back-end can be used instead (and is in project/dependencies.scala, but commented out).  
