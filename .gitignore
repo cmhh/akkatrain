@@ -1,0 +1,8 @@
+**/target
+**/.metals
+**/.vscode
+**/.bsp
+emnist
+mnist
+project/project
+mnist.model
